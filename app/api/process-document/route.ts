@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       console.log("Sending request to external API...")
 
       // Send the PDF to the external API
-      const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/extract-sections/`, {
+      const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/extract-sections/`, {
         method: "POST",
         headers: {
           // Add the ngrok-skip-browser-warning header to bypass the warning
