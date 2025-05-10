@@ -123,38 +123,38 @@ export function SyllabusDisplay({ data }: SyllabusDisplayProps) {
   )
 
   return (
-    <div className="mt-8 w-full">
-      <h2 className="text-2xl font-bold mb-6">Syllabus Structure</h2>
-
-      <Tabs defaultValue="all" className="w-full mb-6" onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-3">
+    <div className="flex flex-col flex-1 w-full h-full min-h-0">
+      <h2 className="text-2xl font-bold mb-4">Syllabus Structure</h2>
+      <Tabs defaultValue="all" className="w-full mb-2 flex flex-col flex-1 min-h-0" onValueChange={setActiveTab}>
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="all">All Pages</TabsTrigger>
           <TabsTrigger value="exercises">Exercise Pages</TabsTrigger>
         </TabsList>
-      </Tabs>
-
-      <Accordion type="single" collapsible className="w-full">
-        {filteredPages.map((page, pageIdx) => (
-          <AccordionItem key={pageIdx} value={`page-${pageIdx}`}>
-            <AccordionTrigger className="text-xl font-semibold">
-              Page {pageIdx + 1} {page.is_exercise_page ? "(Exercise)" : "(Lecture)"}
-            </AccordionTrigger>
-            <AccordionContent>
-              {page.sections && page.sections.length > 0 ? (
-                <div className="pl-4">
-                  {page.sections.map((section, sectionIdx) => (
-                    <div key={sectionIdx} className="mb-6">
-                      {renderSection(section)}
+        <div className="flex-1 min-h-0 overflow-auto">
+          <Accordion type="single" collapsible className="w-full">
+            {filteredPages.map((page, pageIdx) => (
+              <AccordionItem key={pageIdx} value={`page-${pageIdx}`}>
+                <AccordionTrigger className="text-xl font-semibold">
+                  Page {pageIdx + 1} {page.is_exercise_page ? "(Exercise)" : "(Lecture)"}
+                </AccordionTrigger>
+                <AccordionContent>
+                  {page.sections && page.sections.length > 0 ? (
+                    <div className="pl-4">
+                      {page.sections.map((section, sectionIdx) => (
+                        <div key={sectionIdx} className="mb-6">
+                          {renderSection(section)}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-gray-500 italic">No sections found on this page</p>
-              )}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+                  ) : (
+                    <p className="text-gray-500 italic">No sections found on this page</p>
+                  )}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </Tabs>
     </div>
   )
 }

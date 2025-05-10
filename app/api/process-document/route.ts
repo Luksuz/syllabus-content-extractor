@@ -4,6 +4,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
     const file = formData.get("pdf") as File
+    const model = formData.get("model") as string
 
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 })
@@ -18,6 +19,9 @@ export async function POST(request: NextRequest) {
       // Create a new FormData object to send to the external API
       const apiFormData = new FormData()
       apiFormData.append("pdf", file)
+      if (model) {
+        apiFormData.append("model", model)
+      }
 
       console.log("Sending request to external API...")
 
