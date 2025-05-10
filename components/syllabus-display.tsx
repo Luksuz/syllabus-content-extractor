@@ -130,7 +130,6 @@ export function SyllabusDisplay({ data }: SyllabusDisplayProps) {
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="all">All Pages</TabsTrigger>
           <TabsTrigger value="exercises">Exercise Pages</TabsTrigger>
-          <TabsTrigger value="lectures">Lecture Pages</TabsTrigger>
         </TabsList>
       </Tabs>
 
