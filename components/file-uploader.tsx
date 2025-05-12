@@ -80,13 +80,19 @@ export function FileUploader({
       })
 
       if (!response.ok) {
-        let errorMsg = `Error: ${response.status}`
-        try {
-          const errorData = await response.json()
-          errorMsg = errorData.error || errorData.message || errorMsg
-        } catch (jsonError) {
-          // If response is not JSON, use status text
-          errorMsg = response.statusText || errorMsg
+        let errorMsg = `Error: ${response.status}`;
+        // Add specific check for 413 Payload Too Large
+        if (response.status === 413) {
+            errorMsg = "File is too large. Please keep files under 4.5 MB. or send only the first 15 pages.";
+        } else {
+            // Try to parse JSON error only if not 413
+            try {
+              const errorData = await response.json()
+              errorMsg = errorData.error || errorData.message || errorMsg
+            } catch (jsonError) {
+              // If response is not JSON, use status text
+              errorMsg = response.statusText || errorMsg
+            }
         }
         throw new Error(errorMsg)
       }
